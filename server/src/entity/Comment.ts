@@ -1,13 +1,25 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { Track } from './Track';
 
 @Entity()
 export class Comment extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  public id: string;
 
   @Column()
-  author: string;
+  public author: string;
 
   @Column()
-  text: string;
+  public text: string;
+
+  @ManyToOne(() => Track, (track: Track) => track.comments, {
+    cascade: true,
+  })
+  public track: Track;
 }

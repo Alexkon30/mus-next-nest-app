@@ -3,6 +3,7 @@ import {
   Column,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -33,10 +34,14 @@ export class Track extends BaseEntity {
   // @Column()
   // audio: string;
 
-  // @OneToOne(() => Album)
-  // @JoinColumn()
-  // album: Album;
+  @ManyToOne(() => Album, (album: Album) => album.tracks)
+  album: Album;
 
-  // @OneToMany(() => Comment, (comment) => comment.id)
-  // comments: Comment[];
+  @OneToMany(() => Comment, (comment: Comment) => comment.track, {
+    //раскомментировать флаг если нужно, чтобы
+    //при каждом обращении к трэкам подгружались комменты
+    //но тогда eager перекроет точечный вызов с опцией relations
+    // eager: true,
+  })
+  comments: Comment[];
 }

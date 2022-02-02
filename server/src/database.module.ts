@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+// import { Album } from './entity/Album';
+// import { Comment } from './entity/Comment';
+// import { Track } from './entity/Track';
 
 @Module({
   imports: [
@@ -15,6 +18,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         password: configService.get('POSTGRES_PASSWORD'),
         database: configService.get('POSTGRES_DB'),
         entities: [__dirname + '/entity/*{.js,.ts}'],
+        // entities: [Album, Track, Comment],
         synchronize: true,
         logging: true,
       }),

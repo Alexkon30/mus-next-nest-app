@@ -21,6 +21,9 @@ export class Album extends BaseEntity {
   @Column()
   picture: string;
 
-  @OneToMany(() => Track, (track) => track.id)
+  @OneToMany(() => Track, (track) => track.id, {
+    cascade: true,
+    eager: true,
+  })
   tracks: Track[];
 }
