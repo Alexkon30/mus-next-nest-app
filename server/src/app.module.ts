@@ -2,15 +2,19 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
 import { Connection } from 'typeorm';
-import { AlbumModule } from './album/album.module';
-import { DatabaseModule } from './database.module';
-import { TrackModule } from './track/track.module';
+import { AlbumModule } from './albums/album.module';
+import { CommentModule } from './comments/comment.module';
+import { DatabaseModule } from './database/database.module';
+import { TrackModule } from './tracks/track.module';
+import { UserModule } from './users/user.module';
 
 @Module({
   imports: [
     TrackModule,
     AlbumModule,
+    UserModule,
     DatabaseModule,
+    CommentModule,
     ConfigModule.forRoot({
       validationSchema: Joi.object({
         POSTGRES_HOST: Joi.string().required(),

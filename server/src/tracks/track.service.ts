@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Track } from 'src/entity/Track';
 import { Comment } from 'src/entity/Comment';
 import { DeleteResult, Repository } from 'typeorm';
-import { CreateCommentDto } from './dto/create-comment.dto';
+import { CreateCommentDto } from '../comments/dto/create-comment.dto';
 import { CreateTrackDto } from './dto/create-track.dto';
 
 @Injectable()
