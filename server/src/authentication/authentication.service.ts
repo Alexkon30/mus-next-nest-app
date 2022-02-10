@@ -3,6 +3,7 @@ import { RegisterUserDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { PostgresErrorCodes } from 'src/database/postgresErrorCodes.enum';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { User } from 'src/entity/User';
 
 export class AuthenticationService {
   constructor(private readonly userService: UserService) {}
@@ -33,7 +34,7 @@ export class AuthenticationService {
   private async verifyPassword(
     plainTextPassword: string,
     hashedPassword: string,
-  ) {
+  ): Promise<void> {
     const isPasswordMatching = await bcrypt.compare(
       plainTextPassword,
       hashedPassword,
@@ -46,7 +47,10 @@ export class AuthenticationService {
     }
   }
 
-  public async getAuthenticatedUser(email: string, plainTextPassword: string) {
+  public async getAuthenticatedUser(
+    email: string,
+    plainTextPassword: string,
+  ): Promise<User | void> {
     try {
       const user = await this.userService.getByEmail(email);
       await this.verifyPassword(plainTextPassword, user.password);
